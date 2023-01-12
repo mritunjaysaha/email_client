@@ -1,0 +1,40 @@
+.email_individual_container {
+    display: flex;
+}
+
+.email_display_picture {
+}
+
+.email_contents {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+
+    margin-bottom: 2rem;
+    padding: 2rem 1rem;
+
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+
+    font-size: 1.6rem;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.email_contents_from {
+    margin-bottom: 1rem;
+}
+
+.email_contents_subject {
+    margin-bottom: 2rem;
+}
+
+.email_contents_short_description {
+    margin-bottom: 1rem;
+}
+
+.email_contents_date {
+}
