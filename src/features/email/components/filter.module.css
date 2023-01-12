@@ -1,0 +1,36 @@
+.filter_container {
+    display: flex;
+    align-items: center;
+
+    font-size: 1.4rem;
+
+    margin-bottom: 2rem;
+}
+
+.filter_button_container {
+    display: flex;
+    align-items: center;
+
+    margin-left: 1rem;
+}
+
+.filter_button {
+    display: flex;
+    align-items: center;
+
+    border: 1px solid transparent;
+
+    font-size: 1.4rem;
+
+    color: var(--text);
+
+    margin-right: 1rem;
+}
+
+.filter_button:last-of-type {
+    margin-right: 0;
+}
+
+.filter_button:active {
+    border: 1px solid var(--border);
+}
