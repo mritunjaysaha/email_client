@@ -21,6 +21,38 @@ function formatDate(unformattedDate) {
     return formattedDate;
 }
 
+function EmailContents({ from, subject, short_description, date }) {
+    const formattedDate = formatDate(date);
+
+    return (
+        <div className={styles.email_contents}>
+            <p className={styles.email_contents_from}>
+                From:{" "}
+                <span className={styles.bold}>
+                    {from.name} &lt;{from.email}&gt;
+                </span>
+            </p>
+            <p className={styles.email_contents_subject}>
+                Subject: <span className={styles.bold}>{subject}</span>
+            </p>
+
+            <p className={styles.email_contents_short_description}>
+                {short_description}
+            </p>
+
+            <p>{formattedDate}</p>
+        </div>
+    );
+}
+
+function DisplayPicture({ name }) {
+    return (
+        <div className={styles.email_display_picture}>
+            <div className={styles.email_display_name}>{name[0]}</div>
+        </div>
+    );
+}
+
 export function EmailIndividual({
     id,
     from,
@@ -28,28 +60,16 @@ export function EmailIndividual({
     subject,
     short_description,
 }) {
-    const formattedDate = formatDate(date);
     return (
         <div className={styles.email_individual_container} id={id}>
-            <div className={styles.email_display_picture}></div>
+            <DisplayPicture name={from.name} />
 
-            <div className={styles.email_contents}>
-                <p className={styles.email_contents_from}>
-                    From:{" "}
-                    <span className={styles.bold}>
-                        {from.name} &lt;{from.email}&gt;
-                    </span>
-                </p>
-                <p className={styles.email_contents_subject}>
-                    Subject: <span className={styles.bold}>{subject}</span>
-                </p>
-
-                <p className={styles.email_contents_short_description}>
-                    {short_description}
-                </p>
-
-                <p>{formattedDate}</p>
-            </div>
+            <EmailContents
+                from={from}
+                date={date}
+                subject={subject}
+                short_description={short_description}
+            />
         </div>
     );
 }

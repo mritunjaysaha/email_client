@@ -23,6 +23,9 @@ html {
     --filter-button: #e1e4ea;
 
     --padding: 4rem;
+
+    --text-color-primary: var(--text);
+    --text-color-secondary: #f9f9f9;
 }
 
 body {

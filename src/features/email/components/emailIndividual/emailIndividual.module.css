@@ -1,8 +1,33 @@
 .email_individual_container {
     display: flex;
+
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+
+    margin-bottom: 2rem;
+    padding: 2rem 1rem;
+
+    cursor: pointer;
 }
 
 .email_display_picture {
+    padding: 0 2rem 0 1rem;
+}
+
+.email_display_name {
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    width: 6rem;
+    height: 6rem;
+
+    color: var(--text-color-secondary);
+    font-size: 4rem;
+    text-transform: uppercase;
+
+    background-color: var(--accent);
 }
 
 .email_contents {
@@ -10,12 +35,6 @@
     flex-direction: column;
 
     width: 100%;
-
-    margin-bottom: 2rem;
-    padding: 2rem 1rem;
-
-    border-radius: 1rem;
-    border: 1px solid var(--border);
 
     font-size: 1.6rem;
 }
