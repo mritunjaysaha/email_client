@@ -136,17 +136,10 @@ export function Email() {
                     }`}
                 >
                     {emailList.map((id, index) => {
-                        const { from, date, subject, short_description } =
-                            showEmailsObj[id];
-
                         return (
                             <EmailIndividual
                                 key={index}
-                                id={id}
-                                from={from}
-                                date={date}
-                                subject={subject}
-                                short_description={short_description}
+                                email={showEmailsObj[id]}
                                 handleClick={() => {
                                     setIsRightPaneActive(true);
                                     console.log("[clicked]");

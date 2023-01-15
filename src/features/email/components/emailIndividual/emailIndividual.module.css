@@ -39,5 +39,8 @@
     margin-bottom: 1rem;
 }
 
-.email_contents_date {
+.email_contents_favorite {
+    font-weight: 600;
+    color: var(--accent);
+    margin-left: 1rem;
 }

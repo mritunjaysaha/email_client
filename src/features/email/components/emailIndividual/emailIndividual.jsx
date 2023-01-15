@@ -5,7 +5,7 @@ import { formatDate } from "../../../utils/formatDate";
 
 import styles from "./emailIndividual.module.css";
 
-function EmailContents({ from, subject, short_description, date }) {
+function EmailContents({ from, subject, short_description, date, isFavorite }) {
     const formattedDate = formatDate(date);
 
     return (
@@ -24,23 +24,21 @@ function EmailContents({ from, subject, short_description, date }) {
                 {short_description}
             </p>
 
-            <p>{formattedDate}</p>
+            <p>
+                {formattedDate}{" "}
+                <span className={styles.email_contents_favorite}>
+                    {isFavorite ? "Favorite" : ""}
+                </span>
+            </p>
         </div>
     );
 }
 
-export function EmailIndividual({
-    id,
-    from,
-    date,
-    subject,
-    short_description,
-    handleClick,
-}) {
+export function EmailIndividual({ email, handleClick }) {
+    const { from, date, subject, short_description, isFavorite } = email;
     return (
         <div
             className={styles.email_individual_container}
-            id={id}
             onClick={handleClick}
         >
             <DisplayPicture name={from.name} />
@@ -50,6 +48,7 @@ export function EmailIndividual({
                 date={date}
                 subject={subject}
                 short_description={short_description}
+                isFavorite={isFavorite}
             />
         </div>
     );
