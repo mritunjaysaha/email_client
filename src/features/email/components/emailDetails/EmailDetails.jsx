@@ -13,12 +13,14 @@ import {
     setReadEmails,
 } from "../../emailSlice";
 
-function EmailHeader({ id, subject, date, isFavorite }) {
-    console.log({ id, isFavorite });
+function EmailHeader() {
     const dispatch = useDispatch();
-    const { emails } = useSelector((state) => state.email);
+    const { selectedEmail, emails } = useSelector((state) => state.email);
 
+    const { id, subject, date, isFavorite } = selectedEmail;
     const [isMarkedFavorite, setIsMarkedFavorite] = useState(isFavorite);
+
+    console.log({ id, isFavorite, isMarkedFavorite });
 
     const emailsFav = JSON.parse(JSON.stringify(emails));
 
@@ -114,16 +116,11 @@ export function EmailDetails() {
     }, [selectedEmail]);
 
     return (
-        <div className={styles.details_container}>
+        <div className={styles.details_container} key={id}>
             <DisplayPicture name={from.name} />
 
             <div>
-                <EmailHeader
-                    id={id}
-                    subject={subject}
-                    date={date}
-                    isFavorite={isFavorite}
-                />
+                <EmailHeader />
                 <EmailBody body={body} />
             </div>
         </div>
