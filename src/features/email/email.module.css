@@ -1,0 +1,16 @@
+.panes_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left_pane {
+    width: 100%;
+}
+
+.left_pane_active {
+    width: 48%;
+}
+
+.right_pane {
+    width: 48%;
+}

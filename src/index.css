@@ -26,6 +26,8 @@ html {
 
     --text-color-primary: var(--text);
     --text-color-secondary: #f9f9f9;
+
+    --card-bg-hover: #dfe2dc;
 }
 
 body {
@@ -52,4 +54,24 @@ button {
     background: none;
 
     cursor: pointer;
+}
+
+.email_display_picture {
+    padding: 0 2rem 0 1rem;
+}
+
+.email_display_name {
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    width: 6rem;
+    height: 6rem;
+
+    color: var(--text-color-secondary);
+    font-size: 4rem;
+    text-transform: uppercase;
+
+    background-color: var(--accent);
 }

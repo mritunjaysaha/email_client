@@ -1,25 +1,9 @@
 import React from "react";
+import { DisplayPicture } from "../displayPicture/DisplayPicture";
+
+import { formatDate } from "../../../utils/formatDate";
 
 import styles from "./emailIndividual.module.css";
-
-function formatDate(unformattedDate) {
-    const date = new Date(unformattedDate);
-
-    const dd = date.getDate();
-    const mm = date.getMonth();
-    const yy = date.getFullYear();
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-
-    const meridian = hours > 12 ? "pm" : "am";
-
-    const formattedDate = `${dd}/${mm}/${yy} ${
-        hours % 12
-    }:${minutes}${meridian}`;
-
-    console.log({ formattedDate });
-    return formattedDate;
-}
 
 function EmailContents({ from, subject, short_description, date }) {
     const formattedDate = formatDate(date);
@@ -45,23 +29,20 @@ function EmailContents({ from, subject, short_description, date }) {
     );
 }
 
-function DisplayPicture({ name }) {
-    return (
-        <div className={styles.email_display_picture}>
-            <div className={styles.email_display_name}>{name[0]}</div>
-        </div>
-    );
-}
-
 export function EmailIndividual({
     id,
     from,
     date,
     subject,
     short_description,
+    handleClick,
 }) {
     return (
-        <div className={styles.email_individual_container} id={id}>
+        <div
+            className={styles.email_individual_container}
+            id={id}
+            onClick={handleClick}
+        >
             <DisplayPicture name={from.name} />
 
             <EmailContents
