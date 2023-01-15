@@ -11,7 +11,7 @@ import styles from "./email.module.css";
 import { EmailDetails } from "./components/emailDetails/EmailDetails";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setEmailsList, setSelectedEmail } from "./emailSlice";
+import { setEmailsList, setReadEmails, setSelectedEmail } from "./emailSlice";
 
 export function Email() {
     const dispatch = useDispatch();
@@ -21,6 +21,16 @@ export function Email() {
     const [emailList, setEmailList] = useState([]);
 
     const [isRightPaneActive, setIsRightPaneActive] = useState(false);
+
+    useEffect(() => {
+        const localEmails = JSON.parse(localStorage.getItem("emails"));
+        const localReadEmails = JSON.parse(localStorage.getItem("readEmails"));
+
+        console.log({ localEmails, localReadEmails });
+
+        dispatch(setEmailsList(localEmails));
+        dispatch(setReadEmails(localReadEmails));
+    }, []);
 
     useEffect(() => {
         async function getEmails() {
@@ -83,6 +93,8 @@ export function Email() {
                                             date,
                                         })
                                     );
+
+                                    dispatch(setReadEmails(emails[id]));
                                 }}
                             />
                         );

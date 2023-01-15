@@ -14,14 +14,24 @@ export const emailSlice = createSlice({
         setEmailsList: (state, { payload }) => {
 
             state.emails = { ...payload }
+            localStorage.setItem("emails", JSON.stringify({ ...payload }));
 
         },
         setSelectedEmail: (state, { payload }) => {
             console.log({ payload })
             state.selectedEmail = { ...payload }
+
         }
+        ,
+        setReadEmails: (state, { payload }) => {
+            console.log({ payload })
+            state.readEmails.push(payload)
+
+            localStorage.setItem("readEmails", JSON.stringify(state.readEmails))
+
+        },
     }
 })
 
 
-export const { setEmailsList, setSelectedEmail } = emailSlice.actions
+export const { setEmailsList, setSelectedEmail, setReadEmails } = emailSlice.actions
