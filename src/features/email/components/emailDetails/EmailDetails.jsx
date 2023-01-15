@@ -6,11 +6,19 @@ import axios from "axios";
 
 import API from "../../../../APIs.json";
 
+import styles from "./emailDetails.module.css";
+
 function EmailHeader({ id, subject, date }) {
     return (
-        <div>
-            <p>{subject}</p>
-            <p>{formatDate(date)}</p>
+        <div className={styles.details_header}>
+            <div className={styles.details_subject_date}>
+                <p className={styles.details_subject}>{subject}</p>
+                <p className={styles.details_date}>{formatDate(date)}</p>
+            </div>
+
+            <button className={styles.details_favorite_button}>
+                Mark as Favorite
+            </button>
         </div>
     );
 }
@@ -47,16 +55,11 @@ function EmailBody({ body }) {
         handleHTMLparse(body);
     }, [body]);
 
-    // if (body) {
-    //     handleHTMLparse();
-    // }
     return (
-        <div>
-            <div>
-                {para.map((text) => (
-                    <p>{text}</p>
-                ))}
-            </div>
+        <div className={styles.details_body}>
+            {para.map((text) => (
+                <p className={styles.details_p}>{text}</p>
+            ))}
         </div>
     );
 }
@@ -82,7 +85,7 @@ export function EmailDetails() {
     }, [selectedEmail]);
 
     return (
-        <div>
+        <div className={styles.details_container}>
             <DisplayPicture name={from.name} />
 
             <div>

@@ -24,6 +24,8 @@ html {
 
     --padding: 4rem;
 
+    --white: #f9f9f9;
+
     --text-color-primary: var(--text);
     --text-color-secondary: #f9f9f9;
 

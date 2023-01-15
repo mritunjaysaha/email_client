@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     emails: {},
-    selectedEmail: { id: "" }
+    selectedEmail: {},
+    readEmails: [],
+    favoriteEmails: []
 }
 
 export const emailSlice = createSlice({

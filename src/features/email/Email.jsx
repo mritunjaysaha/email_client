@@ -73,7 +73,7 @@ export function Email() {
                                 subject={subject}
                                 short_description={short_description}
                                 handleClick={() => {
-                                    setIsRightPaneActive(!isRightPaneActive);
+                                    setIsRightPaneActive(true);
                                     console.log("[clicked]");
                                     dispatch(
                                         setSelectedEmail({
