@@ -2,11 +2,7 @@ import React, { useState } from "react";
 
 import styles from "./filter.module.css";
 
-const FILTER_TYPES = {
-    UNREAD: "unread",
-    READ: "read",
-    FAVORITE: "favorite",
-};
+import { FILTER_TYPES } from "../../../../constants/filterType";
 
 export function Filter({ handleEmailShowType }) {
     const [isActive, setIsActive] = useState(FILTER_TYPES.UNREAD);

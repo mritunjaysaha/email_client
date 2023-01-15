@@ -1,14 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { DisplayPicture } from "../displayPicture/DisplayPicture";
 import { formatDate } from "../../../utils/formatDate";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 import API from "../../../../APIs.json";
 
 import styles from "./emailDetails.module.css";
+import { setEmailsList, setFavoriteEmails } from "../../emailSlice";
 
 function EmailHeader({ id, subject, date }) {
+    const dispatch = useDispatch();
+
+    const { emails } = useSelector((state) => state.email);
+
+    const emailsFav = JSON.parse(JSON.stringify(emails));
+
+    function handleClick() {
+        console.log("favorite email", id);
+
+        emailsFav[id].isFavorite = true;
+
+        dispatch(setEmailsList(emailsFav));
+
+        dispatch(setFavoriteEmails(emails[id]));
+    }
+
     return (
         <div className={styles.details_header}>
             <div className={styles.details_subject_date}>
@@ -16,7 +33,10 @@ function EmailHeader({ id, subject, date }) {
                 <p className={styles.details_date}>{formatDate(date)}</p>
             </div>
 
-            <button className={styles.details_favorite_button}>
+            <button
+                className={styles.details_favorite_button}
+                onClick={handleClick}
+            >
                 Mark as Favorite
             </button>
         </div>
@@ -84,7 +104,7 @@ export function EmailDetails() {
             <DisplayPicture name={from.name} />
 
             <div>
-                <EmailHeader subject={subject} date={date} />
+                <EmailHeader id={id} subject={subject} date={date} />
                 <EmailBody body={body} />
             </div>
         </div>

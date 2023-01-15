@@ -12,11 +12,14 @@ import { EmailDetails } from "./components/emailDetails/EmailDetails";
 
 import { useSelector, useDispatch } from "react-redux";
 import { setEmailsList, setReadEmails, setSelectedEmail } from "./emailSlice";
+import { FILTER_TYPES } from "../../constants/filterType";
 
 export function Email() {
     const dispatch = useDispatch();
 
-    const { emails, readEmails } = useSelector((state) => state.email);
+    const { emails, readEmails, favoriteEmails } = useSelector(
+        (state) => state.email
+    );
 
     const [emailList, setEmailList] = useState([]);
     const [isRightPaneActive, setIsRightPaneActive] = useState(false);
@@ -72,14 +75,19 @@ export function Email() {
     }, []);
 
     function handleEmailShowType(type) {
-        if (type === "unread") {
+        if (type === FILTER_TYPES.UNREAD) {
             console.log({ emails });
             setEmailList(Object.keys(emails));
             setShowEmailsObj(emails);
-        } else if (type === "read") {
+        } else if (type === FILTER_TYPES.READ) {
             console.log({ readEmails });
             setEmailList(Object.keys(readEmails));
             setShowEmailsObj(readEmails);
+        } else if (type === FILTER_TYPES.FAVORITE) {
+            console.log({ favoriteEmails });
+
+            setEmailList(Object.keys(favoriteEmails));
+            setShowEmailsObj(favoriteEmails);
         }
     }
 

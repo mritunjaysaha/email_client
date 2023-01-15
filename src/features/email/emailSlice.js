@@ -4,7 +4,7 @@ const initialState = {
     emails: {},
     selectedEmail: {},
     readEmails: {},
-    favoriteEmails: []
+    favoriteEmails: {}
 }
 
 export const emailSlice = createSlice({
@@ -13,7 +13,7 @@ export const emailSlice = createSlice({
     reducers: {
         setEmailsList: (state, { payload }) => {
             console.log("[setEmailsList]", { payload })
-            state.emails = { ...payload }
+            state.emails = payload
             localStorage.setItem("emails", JSON.stringify({ ...payload }));
 
         },
@@ -25,17 +25,21 @@ export const emailSlice = createSlice({
         ,
         setReadEmails: (state, { payload }) => {
             console.log({ payload })
-            // state.readEmails.push(payload)
 
-            if (payload.id) { state.readEmails[payload.id] = { ...payload } }
-            // else {
-            //     state.readEmails = payload
-            // }
+            state.readEmails[payload.id] = payload
+
             localStorage.setItem("readEmails", JSON.stringify(state.readEmails))
 
         },
+
+        setFavoriteEmails: (state, { payload }) => {
+            console.log("setFavoriteEmails ", { payload, state })
+
+            state.favoriteEmails[payload.id] = payload
+            localStorage.setItem("favoriteEmails", JSON.stringify(state.readEmails))
+        }
     }
 })
 
 
-export const { setEmailsList, setSelectedEmail, setReadEmails } = emailSlice.actions
+export const { setEmailsList, setSelectedEmail, setReadEmails, setFavoriteEmails } = emailSlice.actions
