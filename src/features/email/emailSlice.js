@@ -11,8 +11,8 @@ export const emailSlice = createSlice({
     name: "email",
     initialState,
     reducers: {
-        setEmailsList: (state, { payload }) => {
-            console.log("[setEmailsList]", { payload })
+        setAllEmails: (state, { payload }) => {
+            console.log("[setAllEmails]", { payload })
             state.emails = payload
             localStorage.setItem("emails", JSON.stringify({ ...payload }));
 
@@ -26,8 +26,12 @@ export const emailSlice = createSlice({
         setReadEmails: (state, { payload }) => {
             console.log("setReadEmails", { payload })
 
-            state.readEmails[payload.id] = payload
 
+            if (!Object.keys(payload).includes("fromLocal")) {
+                state.readEmails[payload.id] = payload
+            } else {
+                state.readEmails = { ...payload.fromLocal }
+            }
             localStorage.setItem("readEmails", JSON.stringify(state.readEmails))
 
         },
@@ -35,12 +39,18 @@ export const emailSlice = createSlice({
         setFavoriteEmails: (state, { payload }) => {
             console.log("setFavoriteEmails ", { payload, state })
 
-            state.favoriteEmails[payload.id] = payload
-            localStorage.setItem("favoriteEmails", JSON.stringify(state.readEmails))
+            if (!Object.keys(payload).includes("fromLocal")) {
+
+                state.favoriteEmails[payload.id] = payload
+            } else {
+                state.favoriteEmails = { ...payload.fromLocal }
+            }
+
+            localStorage.setItem("favoriteEmails", JSON.stringify(state.favoriteEmails))
         },
 
     }
 })
 
 
-export const { setEmailsList, setSelectedEmail, setReadEmails, setFavoriteEmails } = emailSlice.actions
+export const { setAllEmails, setSelectedEmail, setReadEmails, setFavoriteEmails } = emailSlice.actions

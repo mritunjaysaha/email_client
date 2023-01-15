@@ -11,7 +11,12 @@ import styles from "./email.module.css";
 import { EmailDetails } from "./components/emailDetails/EmailDetails";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setEmailsList, setReadEmails, setSelectedEmail } from "./emailSlice";
+import {
+    setAllEmails,
+    setFavoriteEmails,
+    setReadEmails,
+    setSelectedEmail,
+} from "./emailSlice";
 import { FILTER_TYPES } from "../../constants/filterType";
 
 export function Email() {
@@ -47,24 +52,50 @@ export function Email() {
             );
             console.log({ emailObj });
 
-            dispatch(setEmailsList(emailObj));
+            dispatch(setAllEmails(emailObj));
             setEmailList(Object.keys(emailObj));
             setShowEmailsObj(emailObj);
         }
 
         async function getLocalEmails() {
-            const localEmails = await JSON.parse(
-                localStorage.getItem("emails")
-            );
-            const localReadEmails = await JSON.parse(
-                localStorage.getItem("readEmails")
+            const localEmails = await localStorage.getItem("emails");
+            const localReadEmails = await localStorage.getItem("readEmails");
+            const localFavoriteEmails = await localStorage.getItem(
+                "favoriteEmails"
             );
 
-            dispatch(setEmailsList(localEmails));
-            // dispatch(setReadEmails(localReadEmails));
+            const parsedLocalEmails = localEmails
+                ? JSON.parse(localEmails)
+                : false;
 
-            setEmailList(Object.keys(localEmails));
-            setShowEmailsObj(localEmails);
+            const parsedLocalReadEmails = localReadEmails
+                ? JSON.parse(localReadEmails)
+                : false;
+
+            const parsedLocalFavoriteEmails = localFavoriteEmails
+                ? JSON.parse(localFavoriteEmails)
+                : false;
+
+            // console.log({
+            //     parsedLocalEmails,
+            //     parsedLocalReadEmails,
+            //     parsedLocalFavoriteEmails,
+            // });
+
+            console.log({
+                localEmails,
+                localReadEmails,
+                localFavoriteEmails,
+            });
+
+            setEmailList(Object.keys(parsedLocalEmails));
+            setShowEmailsObj(parsedLocalEmails);
+
+            if (parsedLocalEmails) dispatch(setAllEmails(parsedLocalEmails));
+            if (parsedLocalReadEmails)
+                dispatch(setReadEmails({ fromLocal: parsedLocalReadEmails }));
+            if (parsedLocalFavoriteEmails)
+                dispatch(setFavoriteEmails(parsedLocalFavoriteEmails));
         }
 
         getLocalEmails();

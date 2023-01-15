@@ -8,7 +8,7 @@ import API from "../../../../APIs.json";
 
 import styles from "./emailDetails.module.css";
 import {
-    setEmailsList,
+    setAllEmails,
     setFavoriteEmails,
     setReadEmails,
 } from "../../emailSlice";
@@ -35,7 +35,7 @@ function EmailHeader({ id, subject, date, isFavorite }) {
 
         console.log("favorite", emailsFav[id]);
 
-        dispatch(setEmailsList(emailsFav));
+        dispatch(setAllEmails(emailsFav));
         dispatch(setReadEmails(emailsFav[id]));
         dispatch(setFavoriteEmails(emailsFav[id]));
     }
