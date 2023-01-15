@@ -16,21 +16,12 @@ import { setEmailsList, setReadEmails, setSelectedEmail } from "./emailSlice";
 export function Email() {
     const dispatch = useDispatch();
 
-    const { emails } = useSelector((state) => state.email);
+    const { emails, readEmails } = useSelector((state) => state.email);
 
     const [emailList, setEmailList] = useState([]);
-
     const [isRightPaneActive, setIsRightPaneActive] = useState(false);
-
-    useEffect(() => {
-        const localEmails = JSON.parse(localStorage.getItem("emails"));
-        const localReadEmails = JSON.parse(localStorage.getItem("readEmails"));
-
-        console.log({ localEmails, localReadEmails });
-
-        dispatch(setEmailsList(localEmails));
-        dispatch(setReadEmails(localReadEmails));
-    }, []);
+    const [showEmailsObj, setShowEmailsObj] = useState({});
+    const [showEmailType, setShowEmailType] = useState("unread");
 
     useEffect(() => {
         async function getEmails() {
@@ -55,16 +46,43 @@ export function Email() {
 
             dispatch(setEmailsList(emailObj));
             setEmailList(Object.keys(emailObj));
+            setShowEmailsObj(emailObj);
         }
 
-        getEmails();
+        async function getLocalEmails() {
+            const localEmails = await JSON.parse(
+                localStorage.getItem("emails")
+            );
+            const localReadEmails = await JSON.parse(
+                localStorage.getItem("readEmails")
+            );
+
+            console.log({ localEmails, localReadEmails });
+
+            dispatch(setEmailsList(localEmails));
+            dispatch(setReadEmails(...localReadEmails));
+
+            setEmailList(Object.keys(localEmails));
+            setShowEmailsObj(localEmails);
+        }
+
+        getLocalEmails();
+
+        // if (emailList.length === 0) {
+        //     console.log("Emails fetched");
+        //     getEmails();
+        // }
     }, []);
+
+    function handleEmailShowType(type) {
+        setShowEmailType(type);
+    }
 
     return (
         <section>
-            <Filter />
+            <Filter handleEmailShowType={handleEmailShowType} />
 
-            <div className={styles.panes_container}>
+            {/* <div className={styles.panes_container}>
                 <div
                     className={`${styles.left_pane} ${
                         isRightPaneActive ? styles.left_pane_active : ""
@@ -72,7 +90,7 @@ export function Email() {
                 >
                     {emailList.map((id, index) => {
                         const { from, date, subject, short_description } =
-                            emails[id];
+                            showEmailsObj[id];
 
                         return (
                             <EmailIndividual
@@ -105,7 +123,9 @@ export function Email() {
                         <EmailDetails />
                     </div>
                 )}{" "}
-            </div>
+            </div> */}
+
+            {showEmailType === "read" ? JSON.stringify(readEmails) : ""}
         </section>
     );
 }
