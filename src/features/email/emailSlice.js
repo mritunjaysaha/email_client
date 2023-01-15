@@ -24,7 +24,7 @@ export const emailSlice = createSlice({
         }
         ,
         setReadEmails: (state, { payload }) => {
-            console.log({ payload })
+            console.log("setReadEmails", { payload })
 
             state.readEmails[payload.id] = payload
 
@@ -37,7 +37,8 @@ export const emailSlice = createSlice({
 
             state.favoriteEmails[payload.id] = payload
             localStorage.setItem("favoriteEmails", JSON.stringify(state.readEmails))
-        }
+        },
+
     }
 })
 

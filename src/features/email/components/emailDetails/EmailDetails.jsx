@@ -7,23 +7,37 @@ import axios from "axios";
 import API from "../../../../APIs.json";
 
 import styles from "./emailDetails.module.css";
-import { setEmailsList, setFavoriteEmails } from "../../emailSlice";
+import {
+    setEmailsList,
+    setFavoriteEmails,
+    setReadEmails,
+} from "../../emailSlice";
 
-function EmailHeader({ id, subject, date }) {
+function EmailHeader({ id, subject, date, isFavorite }) {
+    console.log({ id, isFavorite });
     const dispatch = useDispatch();
-
     const { emails } = useSelector((state) => state.email);
+
+    const [isMarkedFavorite, setIsMarkedFavorite] = useState(isFavorite);
 
     const emailsFav = JSON.parse(JSON.stringify(emails));
 
     function handleClick() {
         console.log("favorite email", id);
 
-        emailsFav[id].isFavorite = true;
+        if (!isFavorite) {
+            emailsFav[id].isFavorite = true;
+            setIsMarkedFavorite(true);
+        } else {
+            emailsFav[id].isFavorite = false;
+            setIsMarkedFavorite(false);
+        }
+
+        console.log("favorite", emailsFav[id]);
 
         dispatch(setEmailsList(emailsFav));
-
-        dispatch(setFavoriteEmails(emails[id]));
+        dispatch(setReadEmails(emailsFav[id]));
+        dispatch(setFavoriteEmails(emailsFav[id]));
     }
 
     return (
@@ -37,7 +51,7 @@ function EmailHeader({ id, subject, date }) {
                 className={styles.details_favorite_button}
                 onClick={handleClick}
             >
-                Mark as Favorite
+                {!isMarkedFavorite ? "Mark as Favorite" : "Remove Favorite"}
             </button>
         </div>
     );
@@ -85,7 +99,7 @@ function EmailBody({ body }) {
 export function EmailDetails() {
     const { selectedEmail } = useSelector((state) => state.email);
 
-    const { id, from, subject, date } = selectedEmail;
+    const { id, from, subject, date, isFavorite } = selectedEmail;
 
     const [body, setBody] = useState("");
 
@@ -104,7 +118,12 @@ export function EmailDetails() {
             <DisplayPicture name={from.name} />
 
             <div>
-                <EmailHeader id={id} subject={subject} date={date} />
+                <EmailHeader
+                    id={id}
+                    subject={subject}
+                    date={date}
+                    isFavorite={isFavorite}
+                />
                 <EmailBody body={body} />
             </div>
         </div>

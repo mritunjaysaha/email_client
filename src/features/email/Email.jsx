@@ -41,6 +41,7 @@ export function Email() {
                         date,
                         subject,
                         short_description,
+                        isFavorite: false,
                     };
                 }
             );
@@ -68,10 +69,10 @@ export function Email() {
 
         getLocalEmails();
 
-        // if (emailList.length === 0) {
-        //     console.log("Emails fetched");
-        //     getEmails();
-        // }
+        if (emailList.length === 0) {
+            console.log("Emails fetched");
+            getEmails();
+        }
     }, []);
 
     function handleEmailShowType(type) {
@@ -117,12 +118,7 @@ export function Email() {
                                     setIsRightPaneActive(true);
                                     console.log("[clicked]");
                                     dispatch(
-                                        setSelectedEmail({
-                                            id,
-                                            from,
-                                            subject,
-                                            date,
-                                        })
+                                        setSelectedEmail(showEmailsObj[id])
                                     );
 
                                     dispatch(setReadEmails(showEmailsObj[id]));

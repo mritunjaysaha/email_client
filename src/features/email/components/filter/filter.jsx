@@ -19,7 +19,7 @@ export function Filter({ handleEmailShowType }) {
                     }`}
                     onClick={() => {
                         setIsActive(FILTER_TYPES.UNREAD);
-                        handleEmailShowType("unread");
+                        handleEmailShowType(FILTER_TYPES.UNREAD);
                     }}
                 >
                     Unread
@@ -34,7 +34,7 @@ export function Filter({ handleEmailShowType }) {
                     onClick={() => {
                         setIsActive(FILTER_TYPES.READ);
 
-                        handleEmailShowType("read");
+                        handleEmailShowType(FILTER_TYPES.READ);
                     }}
                 >
                     Read
@@ -49,7 +49,7 @@ export function Filter({ handleEmailShowType }) {
                     onClick={() => {
                         setIsActive(FILTER_TYPES.FAVORITE);
 
-                        handleEmailShowType("favorite");
+                        handleEmailShowType(FILTER_TYPES.FAVORITE);
                     }}
                 >
                     Favorite
