@@ -38,13 +38,9 @@ function EmailBody({ body }) {
         const docBody = doc.body;
         const docBodyChildNodes = docBody.childNodes[0].childNodes;
 
-        console.log({ doc }, docBodyChildNodes[0].innerText);
-
         setPara([]);
 
         for (let i = 0; i < docBodyChildNodes.length; i++) {
-            console.log(docBodyChildNodes[i].innerText);
-
             const text = docBodyChildNodes[i].innerText;
 
             setPara((prev) => [...prev, text]);
@@ -57,8 +53,10 @@ function EmailBody({ body }) {
 
     return (
         <div className={styles.details_body}>
-            {para.map((text) => (
-                <p className={styles.details_p}>{text}</p>
+            {para.map((text, index) => (
+                <p key={index} className={styles.details_p}>
+                    {text}
+                </p>
             ))}
         </div>
     );
@@ -73,10 +71,7 @@ export function EmailDetails() {
 
     useEffect(() => {
         async function getEmailDetails() {
-            console.log("[getEmailDetails]", { selectedEmail });
             const res = await axios.get(`${API.EMAIL_BODY}${selectedEmail.id}`);
-
-            console.log("[EmailDetails]", { res });
 
             setBody(res.data.body);
         }

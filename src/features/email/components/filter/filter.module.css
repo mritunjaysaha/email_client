@@ -19,18 +19,19 @@
     align-items: center;
 
     border: 1px solid transparent;
-
-    font-size: 1.4rem;
-
-    color: var(--text);
+    border-radius: 1.5rem;
 
     margin-right: 1rem;
+    padding: 0.5rem 1.5rem;
+
+    color: var(--text);
+    font-size: 1.4rem;
 }
 
 .filter_button:last-of-type {
     margin-right: 0;
 }
 
-.filter_button:active {
+.filter_button_active {
     border: 1px solid var(--border);
 }

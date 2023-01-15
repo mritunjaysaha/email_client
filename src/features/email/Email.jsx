@@ -21,7 +21,6 @@ export function Email() {
     const [emailList, setEmailList] = useState([]);
     const [isRightPaneActive, setIsRightPaneActive] = useState(false);
     const [showEmailsObj, setShowEmailsObj] = useState({});
-    const [showEmailType, setShowEmailType] = useState("unread");
 
     useEffect(() => {
         async function getEmails() {
@@ -57,10 +56,8 @@ export function Email() {
                 localStorage.getItem("readEmails")
             );
 
-            console.log({ localEmails, localReadEmails });
-
             dispatch(setEmailsList(localEmails));
-            dispatch(setReadEmails(...localReadEmails));
+            // dispatch(setReadEmails(localReadEmails));
 
             setEmailList(Object.keys(localEmails));
             setShowEmailsObj(localEmails);
@@ -75,14 +72,22 @@ export function Email() {
     }, []);
 
     function handleEmailShowType(type) {
-        setShowEmailType(type);
+        if (type === "unread") {
+            console.log({ emails });
+            setEmailList(Object.keys(emails));
+            setShowEmailsObj(emails);
+        } else if (type === "read") {
+            console.log({ readEmails });
+            setEmailList(Object.keys(readEmails));
+            setShowEmailsObj(readEmails);
+        }
     }
 
     return (
         <section>
             <Filter handleEmailShowType={handleEmailShowType} />
 
-            {/* <div className={styles.panes_container}>
+            <div className={styles.panes_container}>
                 <div
                     className={`${styles.left_pane} ${
                         isRightPaneActive ? styles.left_pane_active : ""
@@ -112,7 +117,7 @@ export function Email() {
                                         })
                                     );
 
-                                    dispatch(setReadEmails(emails[id]));
+                                    dispatch(setReadEmails(showEmailsObj[id]));
                                 }}
                             />
                         );
@@ -123,9 +128,7 @@ export function Email() {
                         <EmailDetails />
                     </div>
                 )}{" "}
-            </div> */}
-
-            {showEmailType === "read" ? JSON.stringify(readEmails) : ""}
+            </div>
         </section>
     );
 }

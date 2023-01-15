@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     emails: {},
     selectedEmail: {},
-    readEmails: [],
+    readEmails: {},
     favoriteEmails: []
 }
 
@@ -12,7 +12,7 @@ export const emailSlice = createSlice({
     initialState,
     reducers: {
         setEmailsList: (state, { payload }) => {
-
+            console.log("[setEmailsList]", { payload })
             state.emails = { ...payload }
             localStorage.setItem("emails", JSON.stringify({ ...payload }));
 
@@ -25,8 +25,12 @@ export const emailSlice = createSlice({
         ,
         setReadEmails: (state, { payload }) => {
             console.log({ payload })
-            state.readEmails.push(payload)
+            // state.readEmails.push(payload)
 
+            if (payload.id) { state.readEmails[payload.id] = { ...payload } }
+            // else {
+            //     state.readEmails = payload
+            // }
             localStorage.setItem("readEmails", JSON.stringify(state.readEmails))
 
         },
