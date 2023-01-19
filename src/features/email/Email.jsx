@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 
-import { Filter } from "./components/filter/filter";
+import { Filter } from "./components/filter/Filter";
 
 import API from "../../APIs.json";
 import { EmailIndividual } from "./components/emailIndividual/EmailIndividual";
