@@ -93,10 +93,10 @@ export function Email() {
 
             if (parsedLocalEmails) dispatch(setAllEmails(parsedLocalEmails));
             if (parsedLocalReadEmails)
-                dispatch(setReadEmails({ fromLocal: parsedLocalReadEmails }));
+                dispatch(setReadEmails({ updateAll: parsedLocalReadEmails }));
             if (parsedLocalFavoriteEmails)
                 dispatch(
-                    setFavoriteEmails({ fromLocal: parsedLocalFavoriteEmails })
+                    setFavoriteEmails({ updateAll: parsedLocalFavoriteEmails })
                 );
         }
 

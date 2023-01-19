@@ -11,35 +11,52 @@ import {
     setAllEmails,
     setFavoriteEmails,
     setReadEmails,
+    setFavoriteEmailIds,
 } from "../../emailSlice";
 
 function EmailHeader() {
     const dispatch = useDispatch();
-    const { selectedEmail, emails } = useSelector((state) => state.email);
+    const { selectedEmail, emails, favoriteEmailIds } = useSelector(
+        (state) => state.email
+    );
 
     const { id, subject, date, isFavorite } = selectedEmail;
     const [isMarkedFavorite, setIsMarkedFavorite] = useState(isFavorite);
 
-    console.log({ id, isFavorite, isMarkedFavorite });
-
     const emailsFav = JSON.parse(JSON.stringify(emails));
 
-    function handleClick() {
+    async function handleClick() {
         console.log("favorite email", id);
 
         if (!isFavorite) {
             emailsFav[id].isFavorite = true;
             setIsMarkedFavorite(true);
+            dispatch(setFavoriteEmails(emailsFav[id]));
         } else {
             emailsFav[id].isFavorite = false;
             setIsMarkedFavorite(false);
-        }
+            console.log();
 
-        console.log("favorite", emailsFav[id]);
+            const filterFavoriteEmailsIds = favoriteEmailIds.filter(
+                (emailId) => emailId !== id
+            );
+
+            const favoriteObject = {};
+
+            for (
+                let i = 0, len = filterFavoriteEmailsIds.length;
+                i < len;
+                i++
+            ) {
+                let id = filterFavoriteEmailsIds[i];
+                favoriteObject[id] = emails[id];
+            }
+
+            dispatch(setFavoriteEmailIds({ updateAll: favoriteObject }));
+        }
 
         dispatch(setAllEmails(emailsFav));
         dispatch(setReadEmails(emailsFav[id]));
-        dispatch(setFavoriteEmails(emailsFav[id]));
     }
 
     return (
