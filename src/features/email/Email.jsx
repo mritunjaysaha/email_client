@@ -56,7 +56,7 @@ export function Email() {
             setEmailList(Object.keys(emailObj));
             setShowEmailsObj(emailObj);
         }
-
+        getEmails();
         async function getLocalEmails() {
             const localEmails = await localStorage.getItem("emails");
             const localReadEmails = await localStorage.getItem("readEmails");
