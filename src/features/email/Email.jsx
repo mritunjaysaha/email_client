@@ -101,12 +101,7 @@ export function Email() {
         }
 
         getLocalEmails();
-
-        if (emailList.length === 0) {
-            console.log("Emails fetched");
-            getEmails();
-        }
-    }, [dispatch, emailList.length]);
+    }, [dispatch]);
 
     function handleEmailShowType(type) {
         if (type === FILTER_TYPES.UNREAD) {
