@@ -11,7 +11,6 @@ import {
     setAllEmails,
     setFavoriteEmails,
     setReadEmails,
-    setFavoriteEmailIds,
 } from "../../emailSlice";
 
 function EmailHeader() {
@@ -134,12 +133,16 @@ export function EmailDetails() {
 
     return (
         <div className={styles.details_container} key={id}>
-            <DisplayPicture name={from.name} />
+            {body && (
+                <>
+                    <DisplayPicture name={from.name} />
 
-            <div>
-                <EmailHeader />
-                <EmailBody body={body} />
-            </div>
+                    <div>
+                        <EmailHeader />
+                        <EmailBody body={body} />
+                    </div>
+                </>
+            )}
         </div>
     );
 }
