@@ -93,10 +93,6 @@ export function Email() {
 
     async function handleEmailShowType(type) {
         if (type === FILTER_TYPES.UNREAD) {
-            console.log({ emails });
-            // setEmailList(Object.keys(emails));
-            // setShowEmailsObj(emails);
-
             const unreadEmailsIds = [];
             const unreadEmailsObj = {};
 
@@ -110,23 +106,16 @@ export function Email() {
 
             setEmailList(Object.keys(unreadEmailsObj));
             setShowEmailsObj(unreadEmailsObj);
-
-            console.log({ unreadEmailsIds, unreadEmailsObj });
         } else if (type === FILTER_TYPES.READ) {
-            console.log({ readEmails });
             setEmailList(Object.keys(readEmails));
             setShowEmailsObj(readEmails);
         } else if (type === FILTER_TYPES.FAVORITE) {
-            console.log({ favoriteEmails });
-
             setEmailList(Object.keys(favoriteEmails));
             setShowEmailsObj(favoriteEmails);
         } else {
             setEmailList(Object.keys(emailList));
             setShowEmailsObj(emails);
         }
-
-        // dispatch(setSelectedEmail({}));
     }
 
     return (
