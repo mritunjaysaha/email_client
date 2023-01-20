@@ -37,7 +37,6 @@ export function Filter({ handleEmailShowType, setIsRightPaneActive }) {
                     }`}
                     onClick={() => {
                         setIsActive(FILTER_TYPES.READ);
-
                         handleEmailShowType(FILTER_TYPES.READ);
                     }}
                 >
@@ -52,7 +51,6 @@ export function Filter({ handleEmailShowType, setIsRightPaneActive }) {
                     }`}
                     onClick={() => {
                         setIsActive(FILTER_TYPES.FAVORITE);
-
                         handleEmailShowType(FILTER_TYPES.FAVORITE);
                     }}
                 >

@@ -91,11 +91,27 @@ export function Email() {
         getLocalEmails();
     }, [dispatch]);
 
-    function handleEmailShowType(type) {
+    async function handleEmailShowType(type) {
         if (type === FILTER_TYPES.UNREAD) {
             console.log({ emails });
-            setEmailList(Object.keys(emails));
-            setShowEmailsObj(emails);
+            // setEmailList(Object.keys(emails));
+            // setShowEmailsObj(emails);
+
+            const unreadEmailsIds = [];
+            const unreadEmailsObj = {};
+
+            await Object.keys(emails).forEach((id) => {
+                if (!Object.keys(readEmails).includes(id)) {
+                    unreadEmailsIds.push(id);
+
+                    unreadEmailsObj[id] = emails[id];
+                }
+            });
+
+            setEmailList(Object.keys(unreadEmailsObj));
+            setShowEmailsObj(unreadEmailsObj);
+
+            console.log({ unreadEmailsIds, unreadEmailsObj });
         } else if (type === FILTER_TYPES.READ) {
             console.log({ readEmails });
             setEmailList(Object.keys(readEmails));
