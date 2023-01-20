@@ -106,7 +106,7 @@ export function Email() {
             console.log("Emails fetched");
             getEmails();
         }
-    }, []);
+    }, [dispatch, emailList.length]);
 
     function handleEmailShowType(type) {
         if (type === FILTER_TYPES.UNREAD) {
