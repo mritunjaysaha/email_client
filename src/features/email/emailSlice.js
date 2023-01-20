@@ -20,7 +20,7 @@ export const emailSlice = createSlice({
         },
         setSelectedEmail: (state, { payload }) => {
             console.log({ payload })
-            state.selectedEmail = { ...payload }
+            state.selectedEmail = payload
 
         }
         ,

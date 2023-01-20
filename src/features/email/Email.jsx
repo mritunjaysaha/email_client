@@ -76,18 +76,6 @@ export function Email() {
                 ? JSON.parse(localFavoriteEmails)
                 : false;
 
-            // console.log({
-            //     parsedLocalEmails,
-            //     parsedLocalReadEmails,
-            //     parsedLocalFavoriteEmails,
-            // });
-
-            console.log({
-                localEmails,
-                localReadEmails,
-                localFavoriteEmails,
-            });
-
             setEmailList(Object.keys(parsedLocalEmails));
             setShowEmailsObj(parsedLocalEmails);
 
@@ -117,12 +105,20 @@ export function Email() {
 
             setEmailList(Object.keys(favoriteEmails));
             setShowEmailsObj(favoriteEmails);
+        } else {
+            setEmailList(Object.keys(emailList));
+            setShowEmailsObj(emails);
         }
+
+        // dispatch(setSelectedEmail({}));
     }
 
     return (
         <section>
-            <Filter handleEmailShowType={handleEmailShowType} />
+            <Filter
+                handleEmailShowType={handleEmailShowType}
+                setIsRightPaneActive={setIsRightPaneActive}
+            />
 
             <div className={styles.panes_container}>
                 <div

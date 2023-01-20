@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import styles from "./filter.module.css";
 
 import { FILTER_TYPES } from "../../../../constants/filterType";
 
-export function Filter({ handleEmailShowType }) {
-    const [isActive, setIsActive] = useState(FILTER_TYPES.UNREAD);
+export function Filter({ handleEmailShowType, setIsRightPaneActive }) {
+    const [isActive, setIsActive] = useState("");
+
+    useEffect(() => {
+        setIsRightPaneActive(false);
+    }, [isActive, setIsRightPaneActive]);
 
     return (
         <div className={styles.filter_container}>
