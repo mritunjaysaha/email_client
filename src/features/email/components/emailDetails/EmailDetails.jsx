@@ -52,7 +52,7 @@ function EmailHeader() {
                 favoriteObject[id] = emails[id];
             }
 
-            dispatch(setFavoriteEmailIds({ updateAll: favoriteObject }));
+            dispatch(setFavoriteEmails({ updateAll: favoriteObject }));
         }
 
         dispatch(setAllEmails(emailsFav));
