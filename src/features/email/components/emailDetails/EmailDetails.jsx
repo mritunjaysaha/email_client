@@ -118,7 +118,7 @@ function EmailBody({ body }) {
 export function EmailDetails() {
     const { selectedEmail } = useSelector((state) => state.email);
 
-    const { id, from, subject, date, isFavorite } = selectedEmail;
+    const { id, from } = selectedEmail;
 
     const [body, setBody] = useState("");
 

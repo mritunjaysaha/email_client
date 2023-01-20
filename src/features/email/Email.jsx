@@ -38,7 +38,7 @@ export function Email() {
 
             const emailObj = {};
 
-            await res.data.list.map(
+            await res.data.list.forEach(
                 ({ id, from, date, subject, short_description }) => {
                     emailObj[id] = {
                         id,
